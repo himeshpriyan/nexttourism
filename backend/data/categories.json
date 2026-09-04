@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cat-student",
+    "name": "Student",
+    "color": "emerald",
+    "bgLight": "bg-emerald-50 text-emerald-700 border-emerald-200",
+    "textColor": "text-emerald-700",
+    "iconName": "GraduationCap",
+    "isDefault": true
+  },
+  {
+    "id": "cat-professor",
+    "name": "Professor",
+    "color": "indigo",
+    "bgLight": "bg-indigo-50 text-indigo-700 border-indigo-200",
+    "textColor": "text-indigo-700",
+    "iconName": "BookOpen",
+    "isDefault": true
+  },
+  {
+    "id": "cat-staff",
+    "name": "Staff",
+    "color": "sky",
+    "bgLight": "bg-sky-50 text-sky-700 border-sky-200",
+    "textColor": "text-sky-700",
+    "iconName": "Building2",
+    "isDefault": true
+  },
+  {
+    "id": "cat-client",
+    "name": "Client",
+    "color": "purple",
+    "bgLight": "bg-purple-50 text-purple-700 border-purple-200",
+    "textColor": "text-purple-700",
+    "iconName": "Briefcase",
+    "isDefault": true
+  },
+  {
+    "id": "cat-vendor",
+    "name": "Vendor",
+    "color": "amber",
+    "bgLight": "bg-amber-50 text-amber-700 border-amber-200",
+    "textColor": "text-amber-700",
+    "iconName": "Truck",
+    "isDefault": true
+  },
+  {
+    "id": "cat-customer",
+    "name": "Customer",
+    "color": "rose",
+    "bgLight": "bg-rose-50 text-rose-700 border-rose-200",
+    "textColor": "text-rose-700",
+    "iconName": "Users",
+    "isDefault": true
+  },
+  {
+    "id": "cat-friend",
+    "name": "Friend",
+    "color": "pink",
+    "bgLight": "bg-pink-50 text-pink-700 border-pink-200",
+    "textColor": "text-pink-700",
+    "iconName": "Heart",
+    "isDefault": true
+  },
+  {
+    "id": "cat-other",
+    "name": "Other",
+    "color": "slate",
+    "bgLight": "bg-slate-100 text-slate-700 border-slate-200",
+    "textColor": "text-slate-700",
+    "iconName": "Tag",
+    "isDefault": true
+  }
+]
