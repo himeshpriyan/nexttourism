@@ -2,7 +2,8 @@ import type { CategoryItem, Contact, DuplicateCheckResult, FilterState } from '.
 import type { IContactRepository } from './IContactRepository';
 import { LocalStorageRepository } from './LocalStorageRepository';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const rawApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || 'http://localhost:5000';
+const API_BASE_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl}/api`;
 
 export class HybridContactRepository implements IContactRepository {
   private localRepo = new LocalStorageRepository();

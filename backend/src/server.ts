@@ -9,9 +9,16 @@ import { ocrRouter } from './routes/ocrRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 // Middlewares
-app.use(cors({ origin: '*' }));
+app.use(
+  cors({
+    origin: FRONTEND_URL ? [FRONTEND_URL, 'http://localhost:5173', 'http://localhost:3000', 'https://nexttourism-phonenumberlist.vercel.app'] : '*',
+    credentials: true,
+  })
+);
+
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 app.use(morgan('dev'));
@@ -38,13 +45,13 @@ app.use('/api/ocr', ocrRouter);
 async function bootstrap() {
   await connectDB();
 
-  const server = app.listen(PORT, '127.0.0.1', () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     const dbStatus = isMongoConnected() ? 'MongoDB Atlas Cloud' : 'Local File Storage';
     console.log(`\n======================================================`);
-    console.log(`🚀 ContactVault Backend Server running on localhost!`);
-    console.log(`📡 Localhost URL : http://127.0.0.1:${PORT}`);
+    console.log(`🚀 ContactVault Backend Server running!`);
+    console.log(`📡 Server Port   : ${PORT}`);
     console.log(`💾 Database      : ${dbStatus}`);
-    console.log(`🔗 Health Check  : http://127.0.0.1:${PORT}/api/health`);
+    console.log(`🔗 Health Check  : http://localhost:${PORT}/api/health`);
     console.log(`======================================================\n`);
   });
 
