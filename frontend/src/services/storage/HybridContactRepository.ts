@@ -2,22 +2,30 @@ import type { CategoryItem, Contact, DuplicateCheckResult, FilterState } from '.
 import type { IContactRepository } from './IContactRepository';
 import { LocalStorageRepository } from './LocalStorageRepository';
 
-const rawApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || 'http://localhost:5000';
+const rawApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || (import.meta.env.PROD ? 'https://nexttourism.onrender.com' : 'http://localhost:5000');
 const API_BASE_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl}/api`;
 
 export class HybridContactRepository implements IContactRepository {
   private localRepo = new LocalStorageRepository();
   private backendAvailable: boolean | null = null;
+  private lastHealthCheckTime = 0;
 
   private async isBackendHealthy(): Promise<boolean> {
-    if (this.backendAvailable !== null) {
-      return this.backendAvailable;
+    const now = Date.now();
+    if (this.backendAvailable === true && now - this.lastHealthCheckTime < 30000) {
+      return true;
     }
+    if (this.backendAvailable === false && now - this.lastHealthCheckTime < 5000) {
+      return false;
+    }
+
     try {
-      const res = await fetch(`${API_BASE_URL}/health`, { method: 'GET', signal: AbortSignal.timeout(1200) });
+      const res = await fetch(`${API_BASE_URL}/health`, { method: 'GET', signal: AbortSignal.timeout(4000) });
+      this.lastHealthCheckTime = Date.now();
       this.backendAvailable = res.ok;
       return this.backendAvailable;
     } catch {
+      this.lastHealthCheckTime = Date.now();
       this.backendAvailable = false;
       return false;
     }
