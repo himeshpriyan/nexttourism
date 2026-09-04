@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { ContactModel } from '../models/ContactModel.js';
 import { CategoryModel } from '../models/CategoryModel.js';
-import { DEFAULT_CATEGORIES, SAMPLE_CONTACTS } from '../models/dataStore.js';
+import { DEFAULT_CATEGORIES } from '../models/dataStore.js';
 
 dotenv.config();
 
@@ -28,13 +27,6 @@ export async function connectDB(): Promise<boolean> {
     if (categoryCount === 0) {
       console.log('🌱 Seeding default categories to MongoDB Atlas...');
       await CategoryModel.insertMany(DEFAULT_CATEGORIES);
-    }
-
-    // Seed sample contacts if database collection is empty
-    const contactCount = await ContactModel.countDocuments();
-    if (contactCount === 0) {
-      console.log('🌱 Seeding sample contacts to MongoDB Atlas...');
-      await ContactModel.insertMany(SAMPLE_CONTACTS);
     }
 
     return true;

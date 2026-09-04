@@ -11,14 +11,13 @@ export class LocalStorageRepository implements IContactRepository {
     try {
       const data = localStorage.getItem(CONTACTS_KEY);
       if (!data) {
-        // Seed default sample data
-        localStorage.setItem(CONTACTS_KEY, JSON.stringify(SAMPLE_CONTACTS));
-        return [...SAMPLE_CONTACTS];
+        localStorage.setItem(CONTACTS_KEY, JSON.stringify([]));
+        return [];
       }
       return JSON.parse(data) as Contact[];
     } catch (e) {
       console.error('Failed to parse contacts from localStorage', e);
-      return [...SAMPLE_CONTACTS];
+      return [];
     }
   }
 
